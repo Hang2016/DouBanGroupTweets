@@ -43,9 +43,11 @@ class MyStreamListener(tweepy.StreamListener):
                     tweet_id = tweet_data['id_str']
                     #推送这个推特链接到telegram频道
                     tweet_link = 'https://twitter.com/statuses/' + tweet_id
-                    #请私聊我获取{{bot_token}}
+                    #获取tweet内容
+                    tweet_content = tweet_data['text']
+                    #请私聊我获取{{bot_token}} 
                     requests.post("https://api.telegram.org/bot{{bot_token}}/sendMessage",
-                        data={'chat_id': '@tweet_push', 'text': tweet_link, 'disable_web_page_preview': 'false'})
+                        data={'chat_id': '@tweet_push', 'text': tweet_content + ' ' + tweet_link, 'disable_web_page_preview': 'false'})
         except:
             print("pass");
             pass
